@@ -6,9 +6,6 @@
 
 <script>
 import L from 'leaflet';
-import cfData from '../assets/UKCrossfits.json'; // I wanted to load this using fetch but wouldn't work
-//import GeoJSON from './makeGeoJson.js';
-
 import '../../node_modules/leaflet/dist/leaflet.css'
 
 export default {
@@ -17,14 +14,10 @@ export default {
 		return {
 			Map: false,
 			tsUrl: '//a.tile.openstreetmap.org/{z}/{x}/{y}.png',
-			gps: [],
-			affiliateList: cfData,
-			geoJson: {
-				"type": "FeatureCollection",
-				"features": []
-			}
+			gps: []
 		}
 	},
+	props: ['geoJson'],
 	mounted () {
 		this.Map = L.map('mapDiv', {
 			minZoom: 3,
@@ -34,33 +27,10 @@ export default {
 	
 		L.tileLayer(this.tsUrl).addTo(this.Map);
 		this.Map.invalidateSize(false);
-
-		this.makeGeoJson(this.affiliateList.affiliates);
 		this.showLocations();
 	},
 	events: {},
 	methods: {
-		makeGeoJson(arr) {
-			var that = this;
-		
-			for(var i = 0; i < arr.length; i ++){
-				if(arr[i].hasOwnProperty('latlon')){
-					var latlonArr = arr[i].latlon.split(',');
-					var feature = {
-						"type": "Feature",
-						"geometry" : {
-							"type" : "Point",
-							"coordinates" : [parseFloat(latlonArr[1]), parseFloat(latlonArr[0])]
-						},
-						"properties" : {
-							"name" : arr[i].name,
-							"website" : arr[i].website
-						}
-					};
-					that.geoJson.features.push(feature);
-				}
-			}
-		},
 		showLocations() {
 			var that = this;
 			var myLayer; 
