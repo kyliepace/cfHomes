@@ -9,7 +9,6 @@
 <script>
 import MyMap from './components/MyMap'
 import AddressSearch from './components/AddressSearch'
-import cfData from './assets/UKCrossfits.json'; 
 import axios from 'axios';
 
 export default {
@@ -21,11 +20,7 @@ export default {
   data () {
     return {
       city: 'Find houses for sale near a crossfit',
-      affiliateList: cfData,
-      crossFitGeoJson: {
-        "type": "FeatureCollection",
-        "features": []
-      },
+      crossFitGeoJson: '',
       realEstateGeoJson: {
         'type' : 'FeatureCollection',
         'features' : []
@@ -33,10 +28,19 @@ export default {
     }
   },
   beforeMount() {
-    this.makeGeoJson(this.affiliateList.affiliates);
-    this.findRealEstate();
+    this.showCrossfits();
+    this.findRealEstate('England');
   },
   methods: {
+    showCrossfits() {
+      axios.get('/crossfits').then(response => {
+        // save response as this.crossFitGeoJson;
+        this.crossFitGeoJson = response.data;
+      })
+      .catch(e => {
+        this.errors.push(e);
+      })
+    },
     makeGeoJson(arr) {
       var that = this;
 
@@ -58,32 +62,16 @@ export default {
         }
       }
     },
-    findRealEstate() {
+    findRealEstate(string) {
       // get houses for sale
-      axios.get(`http://api.zoopla.co.uk/api/v1/property_listings.js?api_key=24hmsrwtvhzeemqd7gfk3qam&country=England`)
-        .then(response => {
-          // JSON responses are automatically parsed.
-          this.posts = response.data
-          console.log(response.data[0]);
-          for (var j = 0; j < response.data.length; j ++) {
-            var feature = {
-              'type' : 'Feature',
-              'geometry' : {
-                'type' : 'Point',
-                'coordinates' : []
-              },
-              'properties' : {
-
-              }
-            }
-          };
-        })
-        .then(
-
-        )
-        .catch(e => {
-          this.errors.push(e)
-        })
+      axios.get('/zoopla', {
+        country: string
+      }).then(response => {
+        console.log(response.data);
+      })
+      .catch(e => {
+        this.errors.push(e)
+      });
     }
   },
   computed: {
