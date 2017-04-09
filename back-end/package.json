@@ -10,8 +10,11 @@
   "author": "Kylie Pace",
   "license": "ISC",
   "dependencies": {
+    "@turf/buffer": "^4.0.2",
+    "@turf/within": "^4.0.1",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "fs": "0.0.1-security",
     "unirest": "^0.5.1"
   }
 }
