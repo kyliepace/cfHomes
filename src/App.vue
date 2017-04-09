@@ -2,7 +2,7 @@
   <div id="main">
     <h3>Crossfit Homes</h3>
     <AddressSearch :geocode="city"></AddressSearch>
-    <MyMap :geoJson="geoJson"></MyMap>
+    <MyMap :cfGeoJson="crossFitGeoJson" :reGeoJson="realEstateGeoJson"></MyMap>
   </div>
 </template>
 
@@ -10,6 +10,7 @@
 import MyMap from './components/MyMap'
 import AddressSearch from './components/AddressSearch'
 import cfData from './assets/UKCrossfits.json'; 
+import axios from 'axios';
 
 export default {
   name: 'app',
@@ -21,14 +22,19 @@ export default {
     return {
       city: 'Find houses for sale near a crossfit',
       affiliateList: cfData,
-      geoJson: {
+      crossFitGeoJson: {
         "type": "FeatureCollection",
         "features": []
+      },
+      realEstateGeoJson: {
+        'type' : 'FeatureCollection',
+        'features' : []
       }
     }
   },
   beforeMount() {
     this.makeGeoJson(this.affiliateList.affiliates);
+    //this.findRealEstate();
   },
   methods: {
     makeGeoJson(arr) {
@@ -48,12 +54,41 @@ export default {
               "website" : arr[i].website
             }
           };
-          that.geoJson.features.push(feature);
+          that.crossFitGeoJson.features.push(feature);
         }
       }
     },
-    findRealEstate(coordinates) {
+    findRealEstate() {
       // get houses for sale
+      axios.get(`http://api.zoopla.co.uk/api/v1/property_listings.js?api_key=24hmsrwtvhzeemqd7gfk3qam&country=England`)
+        .then(response => {
+          // JSON responses are automatically parsed.
+          this.posts = response.data
+          console.log(response.data[0]);
+          for (var j = 0; j < response.data.length; j ++) {
+            var feature = {
+              'type' : 'Feature',
+              'geometry' : {
+                'type' : 'Point',
+                'coordinates' : []
+              },
+              'properties' : {
+
+              }
+            }
+          };
+        })
+        .then(
+
+        )
+        .catch(e => {
+          this.errors.push(e)
+        })
+    }
+  },
+  computed: {
+    filteredRealEstate () {
+      // filter real estate results by crossfits
     }
   }
 }
