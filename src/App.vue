@@ -52,9 +52,8 @@ export default {
         }
       }
     },
-    findCity(city) {
-   
-      console.log('find coordinates for '+city);
+    findRealEstate(coordinates) {
+      // get houses for sale
     }
   }
 }

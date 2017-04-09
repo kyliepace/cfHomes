@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<input v-model= 'address' placeholder='city'>
-		<button v-on:click='findCity'>Search</button>
+		<button v-on:click='findCounty'>Search</button>
 		<p>{{geocode}}</p>
 	</div>
 </template>
@@ -16,13 +16,12 @@
 		},
 		props: ['geocode'],
 		methods: {
-			findCity: function() {
-				var city = this.address;
-				
-				this.$parent.findCity(city);
+			findCounty: function() {
+				var county = this.address;
 				// send this.address to google
 
 				// send coordinates to App so that App compares to crossfit coordinates
+				//this.$parent.findRealEstate(coords);
 			}
 		}
 	}
