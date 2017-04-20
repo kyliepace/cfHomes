@@ -63,7 +63,7 @@ server.get('/', function(req, res){
 });
 
 server.get('/crossfits', function(req, res) {
-	return res.sendFile(path.join(__dirname, 'geojsons/crossFits.json'));
+	return res.sendFile(path.join(__dirname, 'back-end/geojsons/crossFits.json'));
 	// could I do res.status(200).json(crossFits); instead?
 });
 // get list of properties for sale
