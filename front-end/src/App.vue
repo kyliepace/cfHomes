@@ -49,7 +49,7 @@ export default {
       axios.get('/zoopla', {
         country: string
       }).then(response => {
-        console.log(response.data);
+        console.log(response.data.features.length);
         this.propertyLength = response.data.features.length;
         this.realEstateGeoJson = response.data;
         this.showLoader = false;
