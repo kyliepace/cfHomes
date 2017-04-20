@@ -72,7 +72,7 @@ server.get('/zoopla', function(req, res) {
 	// use min, max lat and lon to get results for all of UK
 	// get only results <= 300,000 gbp
 	// get 400 results
-	unirest.get('http://api.zoopla.co.uk/api/v1/property_listings.js?api_key=24hmsrwtvhzeemqd7gfk3qam&lat_min=49.968&lat_max=58.5&lon_min=-8.05&lon_max=1.72&maximum_price=300000&page_size=100&page_number=4')
+	unirest.get('http://api.zoopla.co.uk/api/v1/property_listings.js?api_key=24hmsrwtvhzeemqd7gfk3qam&lat_min=49.968&lat_max=58.5&lon_min=-8.05&lon_max=1.72&maximum_price=300000&page_size=100&page_number=4&ordering=ascending&listing_status=sale')
 	.end(function(response) {
 		reJson = response.body;
 		console.log('got res');
