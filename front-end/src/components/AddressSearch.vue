@@ -1,9 +1,19 @@
 <template>
 	<div>
-		<input v-model= 'county' placeholder='city'>
-	
-		<button v-on:click='findCounty'>Search</button>
-		<p>{{geocode}}</p>
+		<select v-model='minPrice'>
+			<option>Min Price</option>
+			<option>0</option>
+			<option selected value='50000'>50,000</option>
+			<option>100,000</option>
+		</select>
+		<select v-model='maxPrice'>
+			<option>Max Price</option>
+			<option>100,000</option>
+			<option selected value='250000'>250,000</option>
+			<option>1,000,000</option>
+		</select>
+
+		<button @click='onClick' @enter='onClick'>Update Prices</button>
 	</div>
 </template>
 
@@ -12,18 +22,27 @@
 		name: 'AddressSearch',
 		data () {
 			return {
-				county: ''
+				minPrice: this.obj.minPrice,
+				maxPrice: this.obj.maxPrice,
+				bounds: this.obj.bounds
 			}
 		},
-		props: ['geocode'],
+		props: ['handleClick', 'obj'],
 		methods: {
-			findCounty: function() {
-				var county = this.address;
-				// send this.address to google
-
-				// send coordinates to App so that App compares to crossfit coordinates
-				//this.$parent.findRealEstate(county);
+			onClick() {
+				console.log(this.minPrice);
+				this.handleClick({
+					minPrice: this.minPrice,
+					maxPrice: this.maxPrice,
+					bounds: this.bounds
+				});
 			}
 		}
 	}
 </script>
+
+<style scoped>
+input{
+	padding: 5px;
+}
+</style>

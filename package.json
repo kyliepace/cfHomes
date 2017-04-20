@@ -5,6 +5,7 @@
   "main": "back-end/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "nodemon server.js",
     "start": "node server.js"
   },
   "author": "Kylie Pace",
@@ -18,7 +19,10 @@
     "unirest": "^0.5.1"
   },
   "engines": {
-  	"node": "4.4.4",
-  	"npm": "4.0.5"
+    "node": "4.4.4",
+    "npm": "4.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }

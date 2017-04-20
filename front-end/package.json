@@ -7,14 +7,13 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src",
-    "start": "node server.js"
+    "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
     "axios": "^0.16.1",
     "leaflet": "^1.0.3",
     "vue": "^2.2.2",
-    "vue-spinner": "^1.0.2",
+    "vue-loading-spinner": "^1.0.10",
     "vue2-leaflet": "0.0.44"
   },
   "devDependencies": {

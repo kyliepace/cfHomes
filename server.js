@@ -11,7 +11,6 @@ server.use(express.static(path.join(__dirname, 'back-end/public'))); //send publ
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
-
 var crossFits;
 fs.readFile('back-end/geojsons/crossFits.json', 'utf8', function(err, data){
 	if(err) throw err;
@@ -67,15 +66,25 @@ server.get('/crossfits', function(req, res) {
 	// could I do res.status(200).json(crossFits); instead?
 });
 // get list of properties for sale
-server.get('/zoopla', function(req, res) {
+server.post('/zoopla', function(req, res) {
+	var minPrice = req.body.minPrice;
+	var maxPrice = req.body.maxPrice;
+	var latmin = req.body.bounds[0];
+	var latmax = req.body.bounds[1];
+	var lonmin = req.body.bounds[2];
+	var lonmax = req.body.bounds[3];
+
 	var reJson;
-	// use min, max lat and lon to get results for all of UK
-	// get only results <= 300,000 gbp
 	// get 400 results
-	unirest.get('http://api.zoopla.co.uk/api/v1/property_listings.js?api_key=24hmsrwtvhzeemqd7gfk3qam&lat_min=49.968&lat_max=58.5&lon_min=-8.05&lon_max=1.72&minimum_price=50000&maximum_price=300000&page_size=100&page_number=4&ordering=ascending&listing_status=sale')
+	var url = 'http://api.zoopla.co.uk/api/v1/property_listings.js?api_key=24hmsrwtvhzeemqd7gfk3qam&lat_min='+latmin+
+	'&lat_max='+latmax+'&lon_min='+lonmin+'&lon_max='+lonmax+'&minimum_price='+minPrice+'&maximum_price='+maxPrice+
+	'&page_size=100&page_number=4&ordering=ascending&listing_status=sale';
+
+	console.log(url);
+
+	unirest.get(url)
 	.end(function(response) {
 		reJson = response.body;
-		console.log('got res');
 		// sort through the reJson.listing array, compare to crossfit locations, return matching features
 		var filteredJson = filterResults(reJson);
 		res.setHeader('Content-Type', 'application/json');
