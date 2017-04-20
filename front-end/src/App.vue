@@ -1,6 +1,7 @@
 <template>
   <div id="main">
     <h3>Crossfit Homes</h3>
+    <pulse-loader :loading='showLoader'></pulse-loader>
     <!-- <AddressSearch :geocode="city"></AddressSearch> -->
     <MyMap :cfGeoJson="crossFitGeoJson" :reGeoJson="realEstateGeoJson"></MyMap>
   </div>
@@ -10,18 +11,21 @@
 import MyMap from './components/MyMap'
 import AddressSearch from './components/AddressSearch'
 import axios from 'axios';
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 export default {
   name: 'app',
   components: {
     MyMap,
-    AddressSearch
+    AddressSearch,
+    PulseLoader
   },
   data () {
     return {
       city: 'Find houses for sale near a crossfit',
       crossFitGeoJson: '',
-      realEstateGeoJson: ''
+      realEstateGeoJson: '',
+      showLoader: true
     }
   },
   beforeMount() {
@@ -45,6 +49,7 @@ export default {
       }).then(response => {
         console.log(response.data);
         this.realEstateGeoJson = response.data;
+        this.showLoader = false;
       })
       .catch(e => {
         this.errors.push(e)
