@@ -16,5 +16,9 @@
     "express": "^4.15.2",
     "fs": "0.0.1-security",
     "unirest": "^0.5.1"
+  },
+  "engines": {
+  	"node": "4.4.4",
+  	"npm": "4.0.5"
   }
 }

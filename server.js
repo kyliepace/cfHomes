@@ -7,19 +7,20 @@ var unirest = require('unirest');
 const turfBuffer = require('@turf/buffer');
 const turfWithin = require('@turf/within');
 
-server.use(express.static(path.join(__dirname, 'public'))); //send public files to client
+server.use(express.static(path.join(__dirname, 'back-end/public'))); //send public files to client
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
-// server.route('/*').get(function(req, res) {
-// 	return res.sendFile(path.join(__dirname, 'public/index.html'));
-// });
 
 var crossFits;
-fs.readFile('./geojsons/crossFits.json', 'utf8', function(err, data){
+fs.readFile('back-end/geojsons/crossFits.json', 'utf8', function(err, data){
 	if(err) throw err;
 	crossFits = JSON.parse(data);
 });
+
+// if (process.env.NODE_ENV !== 'production') {
+// 	require('dotenv').config()
+// }
 
 var filterResults = function(json) {
 	console.log(crossFits.features.length); // make sure crossFits has loaded
@@ -57,6 +58,10 @@ var filterResults = function(json) {
 	return turfWithin(points, searchWithin);
 };
 
+server.get('/', function(req, res){
+	return res.render('public/index.html');
+});
+
 server.get('/crossfits', function(req, res) {
 	return res.sendFile(path.join(__dirname, 'geojsons/crossFits.json'));
 	// could I do res.status(200).json(crossFits); instead?
@@ -78,4 +83,7 @@ server.get('/zoopla', function(req, res) {
 	});
 });
 
-server.listen(process.env.PORT || 3000);
+
+server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
+  console.log("server running");
+});
