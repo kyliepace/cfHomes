@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <h3>Crossfit Homes</h3>
-    <AddressSearch :geocode="city"></AddressSearch>
+    <!-- <AddressSearch :geocode="city"></AddressSearch> -->
     <MyMap :cfGeoJson="crossFitGeoJson" :reGeoJson="realEstateGeoJson"></MyMap>
   </div>
 </template>
@@ -21,10 +21,7 @@ export default {
     return {
       city: 'Find houses for sale near a crossfit',
       crossFitGeoJson: '',
-      realEstateGeoJson: {
-        'type' : 'FeatureCollection',
-        'features' : []
-      }
+      realEstateGeoJson: ''
     }
   },
   beforeMount() {
@@ -41,42 +38,17 @@ export default {
         this.errors.push(e);
       })
     },
-    makeGeoJson(arr) {
-      var that = this;
-
-      for(var i = 0; i < arr.length; i ++){
-        if(arr[i].hasOwnProperty('latlon')){
-          var latlonArr = arr[i].latlon.split(',');
-          var feature = {
-            "type": "Feature",
-            "geometry" : {
-              "type" : "Point",
-              "coordinates" : [parseFloat(latlonArr[1]), parseFloat(latlonArr[0])]
-            },
-            "properties" : {
-              "name" : arr[i].name,
-              "website" : arr[i].website
-            }
-          };
-          that.crossFitGeoJson.features.push(feature);
-        }
-      }
-    },
     findRealEstate(string) {
       // get houses for sale
       axios.get('/zoopla', {
         country: string
       }).then(response => {
         console.log(response.data);
+        this.realEstateGeoJson = response.data;
       })
       .catch(e => {
         this.errors.push(e)
       });
-    }
-  },
-  computed: {
-    filteredRealEstate () {
-      // filter real estate results by crossfits
     }
   }
 }

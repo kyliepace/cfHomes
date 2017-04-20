@@ -2,8 +2,8 @@
 	<div id='mapDiv'>
 		<v-map :minZoom='minZoom' :maxZoom='maxZoom' inertia='inertia' :zoom='zoom' :center='center'>
 			<v-tilelayer :url='tsUrl'></v-tilelayer>
-			<v-geojson-layer :geojson='cfGeoJson' :options='cfOptions'>
-			</v-geojson-layer :geojson='reGeoJson' :options='reOptions'>
+			<v-geojson-layer :geojson='cfGeoJson' :options='cfOptions'></v-geojson-layer>
+			<v-geojson-layer :geojson='reGeoJson' :options='reOptions'></v-geojson-layer>
 		</v-map>
 	</div>
 </template>
@@ -12,7 +12,7 @@
 import L from 'leaflet';
 import '../../node_modules/leaflet/dist/leaflet.css';
 import '../../node_modules/leaflet/dist/images/marker-shadow.png';
-import '../../node_modules/leaflet/dist/images/marker-icon.png';
+import icon from '../../node_modules/leaflet/dist/images/marker-icon.png';
 import Vue2Leaflet from 'vue2-leaflet';
 
 
@@ -51,11 +51,15 @@ export default {
 			}, 
 			reOptions: {
 				pointToLayer: function(feature, latlng) {
-					return L.circle(latlng, {radius: 5, color: 'black'});
+					return L.marker(latlng, {icon: L.icon({
+							iconUrl: icon,
+							iconSize: [20, 40]
+						})
+					});
 				},
 				onEachFeature: function(feature, layer) {
 					feature.properties.layer = layer;
-					layer.bindPopup()
+					layer.bindPopup('<img src="'+feature.properties.image_url+'"/><br/><a href="'+feature.properties.url+'" target="_blank">'+feature.properties.street_name +'</a><br/>&#163;'+feature.properties.price);
 				}
 			}
 		}
