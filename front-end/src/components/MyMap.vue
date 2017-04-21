@@ -42,7 +42,7 @@ export default {
 					}
 				},
 				pointToLayer: function(feature, latlng) {
-					return L.circle(latlng, 10, {radius: 4, fillColor: 'black'});
+					return L.circle(latlng, 10, {radius: 41, fillColor: 'black'});
 				},
 				onEachFeature: function(feature, layer) {
 					feature.properties.layer = layer;
@@ -65,7 +65,9 @@ export default {
 		}
 	},
 	props: ['cfGeoJson', 'reGeoJson'],
-	mounted () {},
+	mounted () {
+		console.log('mounted map');
+	},
 	events: {},
 	methods: {
 	}

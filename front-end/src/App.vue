@@ -38,11 +38,11 @@ export default {
   },
   beforeMount() {
     this.showCrossfits();
-    // this.findRealEstate({
-    //   minPrice: 50000,
-    //   maxPrice: 200000,
-    //   bounds: this.currentBounds
-    // })
+    this.findRealEstate({
+      minPrice: this.searchObject.minPrice,
+      maxPrice: this.searchObject.maxPrice,
+      bounds: this.searchObject.bounds
+    })
   },
   
   methods: {

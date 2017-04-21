@@ -2,15 +2,15 @@
 	<div>
 		<select v-model='minPrice'>
 			<option>Min Price</option>
-			<option>0</option>
+			<option value='0'>0</option>
 			<option selected value='50000'>50,000</option>
-			<option>100,000</option>
+			<option value='100000'>100,000</option>
 		</select>
 		<select v-model='maxPrice'>
-			<option>Max Price</option>
-			<option>100,000</option>
+			<option >Max Price</option>
+			<option value='100000'>100,000</option>
 			<option selected value='250000'>250,000</option>
-			<option>1,000,000</option>
+			<option value='1000000'>1,000,000</option>
 		</select>
 
 		<button @click='onClick' @enter='onClick'>Update Prices</button>
