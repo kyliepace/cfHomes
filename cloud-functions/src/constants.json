@@ -1,0 +1,6 @@
+{
+  "url": {
+    "zoopla": "http://api.zoopla.co.uk/api/v1/property_listings.js"
+  },
+  "pathToCrossfitData": "back-end/geojsons/crossFits.json"
+}
