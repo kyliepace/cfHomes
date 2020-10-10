@@ -4,8 +4,7 @@
   "description": "Cloud function back-end finding & filtering properties for sale in the UK against locations of UK crossfit gyms, with Vue Leaflet map",
   "main": "cloud-functions/src/index.js",
   "scripts": {
-    "deploy:backend": "cd cloud-functions && npm run deploy:getCrossfits && npm run deploy:getZoopla",
-    "deploy:frontend": "cd front-end && npm run deploy"
+    "deploy:backend": "cd cloud-functions && npm run deploy:getCrossfits && npm run deploy:getZoopla"
   },
   "author": "Kylie Pace",
   "license": "ISC",

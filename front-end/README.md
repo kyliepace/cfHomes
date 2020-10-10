@@ -18,4 +18,10 @@ $ npm run start
 $ npm run generate
 ```
 
+
+To deploy to github pages, make sure you are in the gh-pages branch, otherwise the /dist/ folder is gitignored.
+
+`npm run generate` to build the `/dist/` folder then git add and commit and push to gh-pages branch. The page will be available [via GitPages](https://kyliepace.github.io/cfHomes/front-end/dist/)
+
+
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).

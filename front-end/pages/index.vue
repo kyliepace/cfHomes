@@ -35,6 +35,7 @@ export default {
       propertyLength: '',
     }
   },
+
   async mounted() {
     // get crossfits on mount
     await this.getCrossfits();
@@ -49,6 +50,7 @@ export default {
     async getCrossfits() {
       try{
         this.crossFitGeoJson = await getCrossfits();
+        console.log('got crossfits: ', this.crossFitGeoJson)
       }
       catch(err){
         console.log(err.message)

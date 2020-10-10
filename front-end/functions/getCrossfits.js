@@ -7,6 +7,8 @@ export default async function getCrossfits(){
     method: 'POST',
     url
   };
+  console.log('axiosing', axiosBody)
+
   const response = await axios.request(axiosBody);
   console.log(`${response.data.features.length} crossfits received: `)
   return response.data
