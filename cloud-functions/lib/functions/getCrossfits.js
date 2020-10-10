@@ -15,6 +15,8 @@ function getCrossfits(req, res) {
         try {
             const crossfits = yield GeoService_1.default.loadCrossfits();
             res.setHeader('Content-Type', 'application/json');
+            res.set('Access-Control-Allow-Origin', "https://kyliepace.github.io/");
+            res.set('Access-Control-Allow-Methods', 'GET, POST');
             return res.status(200).json(crossfits);
         }
         catch (err) {

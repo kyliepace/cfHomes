@@ -40,7 +40,7 @@ export default {
       }
     }
   },
-  async beforeMount() {
+  async mounted() {
     await this.getCrossfits();
     await this.findRealEstate({
       minPrice: this.searchObject.minPrice,
