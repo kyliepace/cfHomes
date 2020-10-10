@@ -1,28 +1,13 @@
 {
-  "name": "CFHomes",
+  "name": "crossfit-homes-uk-vue-leaflet-gcp",
   "version": "1.0.0",
-  "description": "",
-  "main": "back-end/server.js",
+  "description": "Cloud function back-end finding & filtering properties for sale in the UK against locations of UK crossfit gyms, with Vue Leaflet map",
+  "main": "cloud-functions/src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "nodemon server.js",
-    "start": "node server.js"
+    "deploy:backend": "cd cloud-functions && npm run deploy:getCrossfits && npm run deploy:getZoopla"
   },
   "author": "Kylie Pace",
   "license": "ISC",
   "dependencies": {
-    "@turf/buffer": "^4.0.2",
-    "@turf/within": "^4.0.1",
-    "body-parser": "^1.17.1",
-    "express": "^4.15.2",
-    "fs": "0.0.1-security",
-    "unirest": "^0.5.1"
-  },
-  "engines": {
-    "node": "4.4.4",
-    "npm": "4.0.5"
-  },
-  "devDependencies": {
-    "nodemon": "^1.11.0"
   }
 }

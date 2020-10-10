@@ -1,17 +1,19 @@
-const fs = require('fs').promises;
 import { FeatureCollection } from '@turf/helpers';
 import * as constants from '../constants.json';
 import buffer from '@turf/buffer';
 import within from '@turf/within';
+import ApiClient from '../clients/apiClient';
 
 class GeoService {
   crossfits?: FeatureCollection;
+  apiClient = new ApiClient(constants.pathToCrossfitData);
+
   constructor(){
     this.loadCrossfits();
   }
 
   async loadCrossfits(): Promise<FeatureCollection> {
-    const data = await fs.readFile(constants.pathToCrossfitData, 'utf8');
+    const data = await this.apiClient.get();
     this.crossfits = JSON.parse(data);
     return this.crossfits;
   }
