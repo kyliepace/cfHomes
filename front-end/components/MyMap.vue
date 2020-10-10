@@ -45,7 +45,7 @@ export default {
 	},
 	data () {
 		return {
-			tsUrl: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+			tsUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 			zoom: 8,
 			center: [53.1, -2.4],
 			inertia: true,
