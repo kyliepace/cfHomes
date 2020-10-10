@@ -12,8 +12,9 @@
 <script>
 import MyMap from './components/MyMap'
 import AddressSearch from './components/AddressSearch'
-import axios from 'axios';
 import CubeSpin from 'vue-loading-spinner/src/components/Circle';
+import getCrossfits from './functions/getCrossfits';
+import getHouses from './functions/getHouses';
 
 export default {
   name: 'app',
@@ -24,6 +25,7 @@ export default {
   },
   data () {
     return {
+      errors: [],
       instructions: 'Find houses for sale near a crossfit',
       crossFitGeoJson: '',
       realEstateGeoJson: '',
@@ -36,9 +38,9 @@ export default {
       }
     }
   },
-  beforeMount() {
-    this.showCrossfits();
-    this.findRealEstate({
+  async beforeMount() {
+    await this.getCrossfits();
+    await this.findRealEstate({
       minPrice: this.searchObject.minPrice,
       maxPrice: this.searchObject.maxPrice,
       bounds: this.searchObject.bounds
@@ -46,26 +48,26 @@ export default {
   },
   
   methods: {
-    showCrossfits() {
-      axios.get('/crossfits').then(response => {
-        // save response as this.crossFitGeoJson;
-        this.crossFitGeoJson = response.data;
-      })
-      .catch(e => {
-        this.errors.push(e);
-      })
+    async getCrossfits() {
+      try{
+        this.crossFitGeoJson = await getCrossfits();
+      }
+      catch(err){
+        console.log(err.message)
+        this.errors.push(err);
+      }
     },
-    findRealEstate(obj) {
+    async findRealEstate(obj) {
       this.showLoader = true;
-      // get houses for sale
-      axios.post('/zoopla', obj).then(response => {
-        this.propertyLength = response.data.features.length;
-        this.realEstateGeoJson = response.data;
+      try{
+        // get houses for sale
+        this.realEstateGeoJson = await getHouses(obj);
+        this.propertyLength = this.realEstateGeoJson.length;
         this.showLoader = false;
-      })
-      .catch(e => {
-        this.errors.push(e)
-      });
+      }
+      catch(err){
+        this.errors.push(err)
+      }
     }
   }
 }
