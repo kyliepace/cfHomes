@@ -12,3 +12,8 @@ then deploy from command line using gcloud sdk
 normally I'd deploy these cloud functions through a CICD pipeline
 
 
+The cloud functions can be accessed as API endpoints at
+https://europe-west1-crossfit-homes.cloudfunctions.net/getCrossfits 
+and
+https://europe-west1-crossfit-homes.cloudfunctions.net/getZoopla 
+but access is restricted to authenticated users
