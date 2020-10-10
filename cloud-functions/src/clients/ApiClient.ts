@@ -12,25 +12,17 @@ export default class ApiClient {
       .join('&');
   }
 
-  request(method: string, url?: string, params?: any, data?: any): Promise<AxiosResponse> {
+  request(method: string, requestInfo: {data?: any, url?: string, params?: any}): Promise<AxiosResponse> {
     const axiosBody: AxiosRequestConfig = {
       method: method as Method,
-      baseURL: this.baseUrl
+      baseURL: this.baseUrl,
+      ...requestInfo
     };
-    if (data){
-      axiosBody.data = data;
-    }
-    if (url){
-      axiosBody.url = url;
-    }
-    if (params){
-      axiosBody.params = params;
-    }
     return axios.request(axiosBody)
   }
 
-  async get({params, url}: {params: any, url?: string}): Promise<any> {
-    const response = await this.request('GET', url, params, undefined);
+  async get(requestInfo?: { params?: any, url?: string}): Promise<any> {
+    const response = await this.request('GET', requestInfo);
     return response.data;
   }
 }
