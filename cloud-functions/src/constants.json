@@ -2,5 +2,9 @@
   "url": {
     "zoopla": "http://api.zoopla.co.uk/api/v1/property_listings.js"
   },
+  "turf": {
+    "distance": 5,
+    "units": "miles"
+  },
   "pathToCrossfitData": "https://raw.githubusercontent.com/kyliepace/cfHomes/master/geojsons/crossFits.json"
 }

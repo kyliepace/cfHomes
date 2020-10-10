@@ -9,8 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function getCrossfits() {
+const GeoService_1 = require("../services/GeoService");
+function getCrossfits(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const crossfits = yield GeoService_1.default.loadCrossfits();
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(200).json(crossfits);
+        }
+        catch (err) {
+            console.log(`error: ${err.message}`);
+            return res.status(500).send(err.message);
+        }
     });
 }
 exports.default = getCrossfits;

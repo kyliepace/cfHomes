@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@turf/buffer": "^5.1.5",
-    "@turf/within": "^4.7.3",
+    "@turf/points-within-polygon": "^5.1.5",
     "axios": "^0.20.0"
   }
 }

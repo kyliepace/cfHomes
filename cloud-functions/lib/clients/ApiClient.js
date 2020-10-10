@@ -9,8 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function getZoopla() {
-    return __awaiter(this, void 0, void 0, function* () {
-    });
+const axios_1 = require("axios");
+class ApiClient {
+    constructor(url) {
+        this.baseUrl = url;
+    }
+    buildQueryString(params) {
+        return Object.keys(params)
+            .map(key => `${key}=${params[key]}`)
+            .join('&');
+    }
+    request(method, requestInfo) {
+        const axiosBody = Object.assign({ method: method, baseURL: this.baseUrl }, requestInfo);
+        return axios_1.default.request(axiosBody);
+    }
+    get(requestInfo) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield this.request('GET', requestInfo);
+            return response.data;
+        });
+    }
 }
-exports.default = getZoopla;
+exports.default = ApiClient;
