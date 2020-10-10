@@ -1,0 +1,14 @@
+{
+  "AddressSearch": {
+    "description": "Auto imported from components/AddressSearch.vue"
+  },
+  "LazyAddressSearch": {
+    "description": "Auto imported from components/AddressSearch.vue"
+  },
+  "MyMap": {
+    "description": "Auto imported from components/MyMap.vue"
+  },
+  "LazyMyMap": {
+    "description": "Auto imported from components/MyMap.vue"
+  }
+}
