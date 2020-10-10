@@ -6,6 +6,7 @@ export default async function getHouses(obj){
     method: 'POST',
     baseURL: constants.api.urls.cloud_endpoint,
     url: constants.api.urls.houses,
+    headers: {'Content-Type': 'application/json'},
     data: obj
   };
   const response = await axios.request(axiosBody);
