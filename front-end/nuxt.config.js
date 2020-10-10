@@ -2,7 +2,7 @@ export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
   router: {
-    base: '/cfHomes/'
+    base: '/cfHomes/front-end/dist/'
   },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
