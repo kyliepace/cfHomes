@@ -7,7 +7,7 @@ export default async function getCrossfits(req: Request, res: Response): Promise
     const crossfits = await geoService.loadCrossfits();
     res.setHeader('Content-Type', 'application/json');
     res.set('Access-Control-Allow-Origin', constants.url.allowAccess)
-    res.set('Access-Control-Allow-Methods', 'GET, POST')
+    res.set('Access-Control-Allow-Methods', 'POST')
     return res.status(200).json(crossfits);
   }
   catch(err){

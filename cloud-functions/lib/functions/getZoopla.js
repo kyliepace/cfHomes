@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const ZooplaService_1 = require("../services/ZooplaService");
 const GeoService_1 = require("../services/GeoService");
+const constants = require("../constants.json");
 /**
  *
  * given search parameters return properties for sale
@@ -20,6 +21,7 @@ function getZoopla(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { minPrice, maxPrice, bounds } = req.body;
+            console.log('request received', JSON.stringify(req.body));
             const results = yield ZooplaService_1.default.getSites({
                 price: {
                     min: minPrice,
@@ -31,6 +33,8 @@ function getZoopla(req, res) {
             // sort through the reJson.listing array, compare to crossfit locations, return matching features
             const filteredJson = yield GeoService_1.default.filterResults(points);
             res.setHeader('Content-Type', 'application/json');
+            res.set('Access-Control-Allow-Origin', constants.url.allowAccess);
+            res.set('Access-Control-Allow-Methods', 'POST');
             return res.status(200).json(filteredJson);
         }
         catch (err) {

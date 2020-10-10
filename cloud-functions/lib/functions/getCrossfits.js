@@ -10,13 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const GeoService_1 = require("../services/GeoService");
+const constants = require("../constants.json");
 function getCrossfits(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const crossfits = yield GeoService_1.default.loadCrossfits();
             res.setHeader('Content-Type', 'application/json');
-            res.set('Access-Control-Allow-Origin', "https://kyliepace.github.io/");
-            res.set('Access-Control-Allow-Methods', 'GET, POST');
+            res.set('Access-Control-Allow-Origin', constants.url.allowAccess);
+            res.set('Access-Control-Allow-Methods', 'POST');
             return res.status(200).json(crossfits);
         }
         catch (err) {

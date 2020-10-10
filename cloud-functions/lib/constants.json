@@ -1,6 +1,7 @@
 {
     "url": {
-        "zoopla": "http://api.zoopla.co.uk/api/v1/property_listings.js"
+        "zoopla": "http://api.zoopla.co.uk/api/v1/property_listings.js",
+        "allowAccess": "https://kyliepace.github.io"
     },
     "turf": {
         "distance": 5,

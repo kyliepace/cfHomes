@@ -1,4 +1,4 @@
-[DEMO](https://polar-anchorage-14859.herokuapp.com/)
+[DEMO](https://kyliepace.github.io/cfHomes/front-end/dist/)
 
 A full-stack (MEVN) [leaflet](leafletjs.com) map showing Zoopla listed properties for sale within 8 miles of each UK CrossFit location, as pulled from the [CrossFit HQ database](https://crossfit.com/cf/find-a-box.php). Made with [Vue2Leaflet](https://github.com/KoRiGaN/Vue2Leaflet).
 

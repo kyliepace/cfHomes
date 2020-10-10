@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import zooplaService from '../services/ZooplaService';
 import geoService from '../services/GeoService';
 import IFeatureCollection from '../interfaces/IFeatureCollection';
+import * as constants from '../constants.json';
 
 /**
  * 
@@ -15,6 +16,7 @@ export default async function getZoopla(req: Request, res: Response ): Promise<R
       maxPrice,
       bounds
     } = req.body;
+    console.log('request received', JSON.stringify(req.body))
   
     const results: { listing: any[] } = await zooplaService.getSites({
       price: {
@@ -28,6 +30,8 @@ export default async function getZoopla(req: Request, res: Response ): Promise<R
     // sort through the reJson.listing array, compare to crossfit locations, return matching features
     const filteredJson = await geoService.filterResults(points);
     res.setHeader('Content-Type', 'application/json');
+    res.set('Access-Control-Allow-Origin', constants.url.allowAccess)
+    res.set('Access-Control-Allow-Methods', 'POST')
     return res.status(200).json(filteredJson);
   }
   catch(err){
