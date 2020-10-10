@@ -1,4 +1,4 @@
-import ApiClient from "../clients/apiClient";
+import ApiClient from "../clients/ApiClient";
 import * as constants from '../constants.json';
 
 class ZooplaService {

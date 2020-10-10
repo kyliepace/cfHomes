@@ -12,10 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const constants = require("../constants.json");
 const buffer_1 = require("@turf/buffer");
 const points_within_polygon_1 = require("@turf/points-within-polygon");
-const apiClient_1 = require("../clients/apiClient");
+const ApiClient_1 = require("../clients/ApiClient");
 class GeoService {
     constructor() {
-        this.apiClient = new apiClient_1.default(constants.pathToCrossfitData);
+        this.apiClient = new ApiClient_1.default(constants.pathToCrossfitData);
         if (process.env.NODE_ENV === 'production') {
             this.loadCrossfits();
         }
@@ -25,8 +25,7 @@ class GeoService {
      */
     loadCrossfits() {
         return __awaiter(this, void 0, void 0, function* () {
-            const data = yield this.apiClient.get();
-            this.crossfits = JSON.parse(data);
+            this.crossfits = yield this.apiClient.get();
             return this.crossfits;
         });
     }

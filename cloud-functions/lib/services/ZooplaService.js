@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const apiClient_1 = require("../clients/apiClient");
+const ApiClient_1 = require("../clients/ApiClient");
 const constants = require("../constants.json");
 class ZooplaService {
     constructor() {
-        this.apiClient = new apiClient_1.default(constants.url.zoopla);
+        this.apiClient = new ApiClient_1.default(constants.url.zoopla);
     }
     getSites({ price, bounds: [latmin, latmax, lonmin, lonmax] }) {
         return __awaiter(this, void 0, void 0, function* () {
