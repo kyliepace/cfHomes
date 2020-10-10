@@ -6,3 +6,6 @@ To deploy:
 `npm run deploiy:getZoopla`
 
 normally I'd deploy these cloud functions through a CICD pipeline
+
+
+To run you have to set the zoopla api key through process.env.ZOOPLA_API_KEY

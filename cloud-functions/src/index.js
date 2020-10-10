@@ -5,9 +5,9 @@
  */
 const functionName = process.env.TARGET_FUNCTION;
 if (!functionName || functionName === 'getCrossfits'){
-  exports.getCrossfits = require('./getCrossfits').default;
+  exports.getCrossfits = require('./functions/getCrossfits').default;
 }
 
 if (!functionName || functionName === 'getZoopla'){
-  exports.getZoopla = require('./getZoopla').default;
+  exports.getZoopla = require('./functions/getZoopla').default;
 }

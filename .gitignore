@@ -1,4 +1,4 @@
 node_modules
-./cloud-functions/node_modules
-./cloud-functions/lib/
+./cloud-functions/node_modules/
+./cloud-functions/lib/*
 ./cloud-functions/.env

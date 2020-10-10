@@ -1,7 +1,7 @@
 import ApiClient from "../clients/apiClient";
 import * as constants from '../constants.json';
 
-export default class ZooplaService {
+class ZooplaService {
   apiClient = new ApiClient(constants.url.zoopla);
 
   async getSites({price, bounds: [latmin, latmax, lonmin, lonmax]}){
@@ -18,18 +18,10 @@ export default class ZooplaService {
       ordering: 'ascending',
       listing_status: 'sale'
     };
-    try{
-      const data = await this.apiClient.get({
-        params
-      });
-      return data;
-    }
-    catch(err){
-      console.log('error', {
-        err: err.message
-      });
-    }
-
+    const data = await this.apiClient.get({
+      params
+    });
+    return data;
   }
 
   /**
@@ -37,7 +29,6 @@ export default class ZooplaService {
    * convert data returned from zoopla api into a feature collection
    */
   toFeatureCollection(data?: any): any{
-    
     const features = data.map(listing => ({
       type: 'Feature',
       properties: {
@@ -62,3 +53,5 @@ export default class ZooplaService {
     };
   }
 }
+
+export default new ZooplaService();
