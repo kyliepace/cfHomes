@@ -4,13 +4,9 @@ import * as constants from '../constants.json';
 class ZooplaService {
   apiClient = new ApiClient(constants.url.zoopla);
 
-  async getSites({price, bounds: [latmin, latmax, lonmin, lonmax]}){
-    const params = {
+  async getSites({ price, bounds}) {
+    const params: {[key: string]: any} = {
       api_key: process.env.ZOOPLA_API_KEY,
-      lat_min: latmin,
-      lat_max: latmax,
-      lon_min: lonmin,
-      lon_max: lonmax,
       minimum_price: price.minPrice,
       maximum_price: price.maxPrice,
       page_size: 100,
@@ -18,6 +14,12 @@ class ZooplaService {
       ordering: 'ascending',
       listing_status: 'sale'
     };
+    if (bounds){
+      params.lat_min = bounds[0];
+      params.lat_max = bounds[1];
+      params.lon_min = bounds[2];
+      params.lon_max = bounds[3];
+    }
     const data = await this.apiClient.get({
       params
     });

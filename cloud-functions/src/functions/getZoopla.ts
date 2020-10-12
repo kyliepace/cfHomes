@@ -15,16 +15,18 @@ export default async function getZoopla(req: Request, res: Response ): Promise<R
       minPrice,
       maxPrice,
       bounds
-    } = req.body;
+    } = req.body
+
     console.log('request received', JSON.stringify(req.body))
   
-    const results: { listing: any[] } = await zooplaService.getSites({
+    const search = {
       price: {
         min: minPrice,
         max: maxPrice
       },
       bounds
-    });  
+    }
+    const results: { listing: any[] } = await zooplaService.getSites(search);  
     const points: IFeatureCollection = zooplaService.toFeatureCollection(results.listing);
 
     // sort through the reJson.listing array, compare to crossfit locations, return matching features
