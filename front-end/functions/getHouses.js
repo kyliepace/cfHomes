@@ -11,7 +11,7 @@ export default async function getHouses(data = {}){
   const axiosBody = {
     method: 'POST',
     url,
-    headers: {'Content-Type': 'application/json'},
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     data
   };
   const response = await axios.request(axiosBody);

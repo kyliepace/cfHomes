@@ -12,19 +12,22 @@ import * as constants from '../constants.json';
  */
 export default async function getZoopla(req: Request, res: Response ): Promise<Response>{
   const allowAccess = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : constants.url.allowAccess;
-  res.set('Access-Control-Allow-Origin', allowAccess)
-  
+  res.setHeader('Access-Control-Allow-Origin', allowAccess)
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT')
+  res.setHeader('Access-Control-Max-Age', '86400');
+
   try{
-    console.log('request received', JSON.stringify(req.body))
+    // body-parser library could handle this but I'm not using express
+    // sending as Cotnent-Type application/x-www-form-urlencoded because of preflight and CORS
+    const data = JSON.parse(Object.keys(req.body)[0])
+    console.log('request received', data)
   
-    const results: any = await placesService.getSites(req.body);  
+    const results: any = await placesService.getSites(data);  
     const points: IFeatureCollection = zooplaService.toFeatureCollection(results);
 
     // sort through the reJson.listing array, compare to crossfit locations, return matching features
     const filteredJson = await geoService.filterResults(points);
-    res.setHeader('Content-Type', 'application/json');
-
-    res.set('Access-Control-Allow-Methods', 'POST')
     return res.status(200).json(filteredJson);
   }
   catch(err){
