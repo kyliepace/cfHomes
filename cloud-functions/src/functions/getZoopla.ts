@@ -22,11 +22,7 @@ export default async function getZoopla(req: Request, res: Response ): Promise<R
     console.log('request received', data)
   
     const results: any = await placesService.getSites(data);  
-<<<<<<< d708f0f8aa8a10b5e2455c36b56b4600fb81e306
     const points: IFeatureCollection = placesService.toFeatureCollection(results);
-=======
-    const points: IFeatureCollection = zooplaService.toFeatureCollection(results);
->>>>>>> send as application/x-www-form-urlencoded
 
     // sort through the reJson.listing array, compare to crossfit locations, return matching features
     const filteredJson = await geoService.filterResults(points, undefined, data.radiusOptions);
