@@ -44,7 +44,9 @@ class GeoService {
      */
     loadCrossfits() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.crossfits = yield this.apiClient.get();
+            if (!this.crossfits) {
+                this.crossfits = yield this.apiClient.get();
+            }
             return this.crossfits;
         });
     }

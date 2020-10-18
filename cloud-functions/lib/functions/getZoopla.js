@@ -42,22 +42,15 @@ const constants = __importStar(require("../constants.json"));
  */
 function getZoopla(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const allowAccess = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : constants.url.allowAccess;
+        res.set('Access-Control-Allow-Origin', allowAccess);
         try {
-            const { minPrice, maxPrice, bounds } = req.body;
             console.log('request received', JSON.stringify(req.body));
-            const search = {
-                price: {
-                    min: minPrice,
-                    max: maxPrice
-                },
-                bounds
-            };
-            const results = yield PlacesService_1.default.getSites(search);
+            const results = yield PlacesService_1.default.getSites(req.body);
             const points = ZooplaService_1.default.toFeatureCollection(results);
             // sort through the reJson.listing array, compare to crossfit locations, return matching features
             const filteredJson = yield GeoService_1.default.filterResults(points);
             res.setHeader('Content-Type', 'application/json');
-            res.set('Access-Control-Allow-Origin', constants.url.allowAccess);
             res.set('Access-Control-Allow-Methods', 'POST');
             return res.status(200).json(filteredJson);
         }

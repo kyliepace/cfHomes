@@ -4,11 +4,16 @@ import * as constants from '../constants.json';
 class PlacesService {
   apiClient = new ApiClient(constants.url.places);
 
-  async getSites({ price, bounds}) {
+  /**
+   *  return locations from foursquare venue search
+   *  https://developer.foursquare.com/docs/api-reference/venues/search/
+   */
+  async getSites({ center }) {
     const params: {[key: string]: any} = {
       client_id: process.env.PLACES_CLIENT_ID,
       client_secret: process.env.PLACES_CLIENT_SECRET,
-      ll: '40.7243,-74.0018',
+      ll: center || '50.7243,-8.0018',
+      // categoryId: [],
       v: '20201010',
       limit: 100
     };

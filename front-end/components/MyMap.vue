@@ -1,7 +1,14 @@
 <template>
 	<div id='mapDiv'>
     <client-only>
-      <v-map :minZoom='minZoom' :maxZoom='maxZoom' inertia='inertia' :zoom='zoom' :center='center'>
+      <v-map 
+        :minZoom='minZoom' 
+        :maxZoom='maxZoom' 
+        inertia='inertia' 
+        :zoom='zoom' 
+        :center='center'
+        @update:center="centerUpdated"
+      >
         <v-tilelayer :url='tsUrl'></v-tilelayer>
         <v-geojson-layer v-if='cfGeoJson !== ""' :geojson='cfGeoJson' :options='cfOptions'></v-geojson-layer>
         <v-geojson-layer v-if='reGeoJson !== ""' :geojson='reGeoJson' :options='reOptions'></v-geojson-layer>
@@ -75,12 +82,11 @@ export default {
 			}
 		}
 	},
-	props: ['cfGeoJson', 'reGeoJson'],
-	mounted () {
-		console.log('mounted map');
-	},
-	events: {},
+	props: ['cfGeoJson', 'reGeoJson', 'handleMove'],
 	methods: {
+    centerUpdated(center){
+      this.handleMove(center)
+    }
 	}
 };
 </script>

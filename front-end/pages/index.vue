@@ -6,8 +6,8 @@
     <!-- <cube-spin v-if='showLoader' id='loading'></cube-spin> -->
     <p v-if='propertyLength > 0'>{{propertyLength}} results</p>
     <p v-else >{{instructions}}</p>
-    <AddressSearch id='searchForm' :handleClick='findRealEstate' :obj='searchObject' @submit='findRealEstate'></AddressSearch>
-    <MyMap :cfGeoJson="crossFitGeoJson" :reGeoJson="realEstateGeoJson"></MyMap>
+    <!-- <AddressSearch id='searchForm' :handleClick='findVenues' :obj='searchObject' @submit='findRealEstate'/> -->
+    <MyMap :cfGeoJson='crossFitGeoJson' :reGeoJson='locationGeoJson' :handleMove='findVenuesByCenter'/>
   </div>
 </template>
 
@@ -30,21 +30,22 @@ export default {
       errors: [],
       instructions: 'Find houses for sale near a crossfit',
       crossFitGeoJson: '',
-      realEstateGeoJson: '',
+      locationGeoJson: '',
       showLoader: false,
       propertyLength: '',
-      searchObject: {
-        minPrice: 50000,
-        maxPrice: 250000,
-        bounds: [49.97, 58.5, -8.05, 1.72] //lat min, lat max, lon min, lon max
-      }
     }
   },
   async mounted() {
+    // get crossfits on mount
     await this.getCrossfits();
   },
   
   methods: {
+    findVenuesByCenter(newCenter){
+      const center = `${newCenter.lat},${newCenter.lng}`;
+      return this.findVenues({center})
+    },
+
     async getCrossfits() {
       try{
         this.crossFitGeoJson = await getCrossfits();
@@ -54,13 +55,17 @@ export default {
         this.errors.push(err);
       }
     },
-    async findRealEstate(obj) {
+
+    /*
+    * search venues from foursquare
+    */
+    async findVenues(obj) {
       if (!obj){ return; }
       this.showLoader = true;
       try{
-        // get houses for sale
-        this.realEstateGeoJson = await getHouses(obj);
-        this.propertyLength = this.realEstateGeoJson.length;
+        // get locations
+        this.locationGeoJson = await getHouses(obj);
+        this.propertyLength = this.locationGeoJson.length;
         this.showLoader = false;
       }
       catch(err){

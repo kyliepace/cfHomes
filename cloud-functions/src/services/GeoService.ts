@@ -3,6 +3,7 @@ import * as constants from '../constants.json';
 import buffer from '@turf/buffer';
 import pointsWithinPolygon from '@turf/points-within-polygon'
 import ApiClient from '../clients/ApiClient';
+import IFeatureCollection from '../interfaces/IFeatureCollection';
 
 class GeoService {
   crossfits;
@@ -12,8 +13,10 @@ class GeoService {
   /**
    * get crossfits geojson from github
    */
-  async loadCrossfits() {
-    this.crossfits = await this.apiClient.get();
+  async loadCrossfits(): Promise<IFeatureCollection> {
+    if (!this.crossfits){
+      this.crossfits = await this.apiClient.get();
+    }
     return this.crossfits;
   }
 

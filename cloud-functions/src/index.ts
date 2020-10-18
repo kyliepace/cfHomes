@@ -8,6 +8,9 @@ if (!functionName || functionName === 'getCrossfits'){
   exports.getCrossfits = require('./functions/getCrossfits').default;
 }
 
+/**
+ * function that retrieves points from an api based on user search and map location params
+ */
 if (!functionName || functionName === 'getZoopla'){
   exports.getZoopla = require('./functions/getZoopla').default;
 }

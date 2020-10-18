@@ -1,13 +1,18 @@
 import axios from 'axios';
 const constants = require('../constants.json');
 
-export default async function getHouses(obj = {}){
+/**
+ * 
+ * get locations returned from getZoopla cloud function
+ */
+export default async function getHouses(data = {}){
+  const url = `${constants.api.urls.cloud_endpoint[process.env.NODE_ENV]}/${constants.api.urls.houses}`;
+
   const axiosBody = {
     method: 'POST',
-    baseURL: constants.api.urls.cloud_endpoint[process.env.NODE_ENV],
-    url: constants.api.urls.houses,
+    url,
     headers: {'Content-Type': 'application/json'},
-    data: obj
+    data
   };
   const response = await axios.request(axiosBody);
   return response.data

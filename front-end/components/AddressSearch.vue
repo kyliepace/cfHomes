@@ -22,9 +22,7 @@
 		name: 'AddressSearch',
 		data () {
 			return {
-				minPrice: this.obj.minPrice,
-				maxPrice: this.obj.maxPrice,
-				bounds: this.obj.bounds
+				categoryId: []
 			}
 		},
 		props: ['handleClick', 'obj'],
@@ -32,9 +30,7 @@
 			onClick() {
 				console.log(this.minPrice);
 				this.handleClick({
-					minPrice: this.minPrice,
-					maxPrice: this.maxPrice,
-					bounds: this.bounds
+					categoryId: this.categoryId
 				});
 			}
 		}
