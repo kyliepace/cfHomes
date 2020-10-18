@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import zooplaService from '../services/ZooplaService';
 import placesService from '../services/PlacesService';
 import geoService from '../services/GeoService';
 import IFeatureCollection from '../interfaces/IFeatureCollection';
@@ -24,7 +23,7 @@ export default async function getZoopla(req: Request, res: Response ): Promise<R
     console.log('request received', data)
   
     const results: any = await placesService.getSites(data);  
-    const points: IFeatureCollection = zooplaService.toFeatureCollection(results);
+    const points: IFeatureCollection = placesService.toFeatureCollection(results);
 
     // sort through the reJson.listing array, compare to crossfit locations, return matching features
     const filteredJson = await geoService.filterResults(points);

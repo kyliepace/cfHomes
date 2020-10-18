@@ -46,7 +46,7 @@ class PlacesService {
             const params = {
                 client_id: process.env.PLACES_CLIENT_ID,
                 client_secret: process.env.PLACES_CLIENT_SECRET,
-                ll: center || '50.7243,-8.0018',
+                ll: center || constants.defaultSearch.center,
                 // categoryId: [],
                 v: '20201010',
                 limit: 100
@@ -62,20 +62,23 @@ class PlacesService {
      *
      * convert data returned from zoopla api into a feature collection
      */
-    toFeatureCollection(results) {
-        const features = results.responses.venues.map((venue) => ({
-            type: 'Feature',
-            properties: {
-                id: venue.id,
-                name: venue.name,
-                category: venue.categories[0].name,
-                address: venue.location.address,
-            },
-            geometry: {
-                type: 'Point',
-                coordinates: [venue.location.lng, venue.location.lat]
-            }
-        }));
+    toFeatureCollection(data) {
+        const features = data.response.venues.map((venue) => {
+            var _a;
+            return ({
+                type: 'Feature',
+                properties: {
+                    id: venue.id,
+                    name: venue.name,
+                    category: (_a = venue.categories[0]) === null || _a === void 0 ? void 0 : _a.name,
+                    address: venue.location.address,
+                },
+                geometry: {
+                    type: 'Point',
+                    coordinates: [venue.location.lng, venue.location.lat]
+                }
+            });
+        });
         return {
             type: 'FeatureCollection',
             features

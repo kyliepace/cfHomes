@@ -76,8 +76,7 @@ export default {
 					}) : undefined;
 				},
 				onEachFeature: function(feature, layer) {
-					feature.properties.layer = layer;
-					layer.bindPopup('<img src="'+feature.properties.image_url+'"/><br/><a href="'+feature.properties.url+'" target="_blank">'+feature.properties.street_name +'</a><br/>&#163;'+feature.properties.price);
+					layer.bindPopup(feature.properties.name +'<br/>'+feature.properties.category);
 				}
 			}
 		}
