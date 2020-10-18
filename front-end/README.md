@@ -7,7 +7,7 @@ Static front-end with leaflet map built with Vue.js and Nuxt.js
 # install dependencies
 $ npm install
 
-# serve with hot reload at localhost:3000
+# serve with hot reload at http://localhost:3000/cfHomes/front-end/dist/
 $ npm run dev
 
 # build for production and launch server

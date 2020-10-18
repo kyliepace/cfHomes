@@ -7,12 +7,15 @@ const constants = require('../constants.json');
  */
 export default async function getHouses(data = {}){
   const url = `${constants.api.urls.cloud_endpoint[process.env.NODE_ENV]}/${constants.api.urls.houses}`;
-
+  console.log(data)
   const axiosBody = {
     method: 'POST',
     url,
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    data
+    data: {
+      ...data,
+      categoryId: data.categoryId.toString()
+    }
   };
   const response = await axios.request(axiosBody);
   console.log(`${response.data.features.length} locations received `)

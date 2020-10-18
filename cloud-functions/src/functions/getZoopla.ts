@@ -18,7 +18,7 @@ export default async function getZoopla(req: Request, res: Response ): Promise<R
   try{
     // body-parser library could handle this but I'm not using express
     // sending as Cotnent-Type application/x-www-form-urlencoded because of preflight and CORS
-    const data = JSON.parse(Object.keys(req.body)[0])
+    const data = JSON.parse(Object.keys(req.body)[0]);
     console.log('request received', data)
   
     const results: any = await placesService.getSites(data);  

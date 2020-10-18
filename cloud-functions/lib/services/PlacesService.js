@@ -46,12 +46,12 @@ class PlacesService {
      */
     getSites({ center, categoryId }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const categories = this.buildCategories(categoryId);
+            // const categories = this.buildCategories(categoryId);
             const params = {
                 client_id: process.env.PLACES_CLIENT_ID,
                 client_secret: process.env.PLACES_CLIENT_SECRET,
                 ll: center || constants.defaultSearch.center,
-                categoryId: categories,
+                categoryId: categoryId,
                 v: '20201010',
                 limit: 100
             };

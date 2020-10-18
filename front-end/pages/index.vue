@@ -33,7 +33,7 @@ export default {
       locationGeoJson: '',
       showLoader: false,
       propertyLength: '',
-      center: ''
+      center: '50.7243,-8.0018'
     }
   },
 
@@ -46,7 +46,6 @@ export default {
     findVenuesByCenter(newCenter){
       const center = `${newCenter.lat},${newCenter.lng}`;
       this.center = center;
-      return this.findVenues({center})
     },
 
     async getCrossfits() {
@@ -63,6 +62,7 @@ export default {
     * search venues from foursquare
     */
     async findVenues(obj) {
+      if (!obj){ return; }
       this.showLoader = true;
       try{
         // get locations
