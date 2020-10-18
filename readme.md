@@ -1,15 +1,11 @@
 [DEMO](https://kyliepace.github.io/cfHomes/front-end/dist/)
 
-A full-stack (MEVN) [leaflet](leafletjs.com) map showing Zoopla listed properties for sale within 8 miles of each UK CrossFit location, as pulled from the [CrossFit HQ database](https://crossfit.com/cf/find-a-box.php). Made with [Vue2Leaflet](https://github.com/KoRiGaN/Vue2Leaflet).
+A full-stack (MEVN) [leaflet](leafletjs.com) map showing UK CrossFits, as pulled from the [CrossFit HQ database](https://crossfit.com/cf/find-a-box.php). Made with [Vue2Leaflet](https://github.com/KoRiGaN/Vue2Leaflet).
 
-Uses [Turf.js](turfjs.org) to build buffers around each crossfit point, and to filter [Zoopla API](http://developer.zoopla.com/) results to only those properties within any buffer polygon.
+Demonstrates using [Turf.js](turfjs.org) to build buffers around each crossfit point, and to filter [Foursquare API](https://developer.foursquare.com/docs/api-reference/venues/search/) results to only those locations within any buffer polygon.
 
 ![screenshot](cfHomes.png)
 
-Node back-end specifies parameters to Zoopla that could be changed through Vue.js front-end. For example, user could change max price, or look at specific countries within the UK. 
+The backend is deployed as two Google cloud functions instead of as an express app, for more granular scalability. The front-end is a static webpage built with Nuxt.js.
 
-Backend deployed as two Google cloud functions instead of as an express app, for more granular scalability. Front-end deployed as a static webpage.
-
-Ideas for future development:
-* find nearest crossfit to each property and display crossfit location name in popup
-* update property results on map change by sending map bounds to zoopla 
+This was originally built against the Zoopla property API to find homes for sale near crossfits (hence the name of this repo), but their API seems to have gone down.

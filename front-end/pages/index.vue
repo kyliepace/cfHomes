@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <h3>Crossfit Homes</h3>
+    <h3>Find Places Near Crossfits</h3>
     <p v-if='showLoader' id='loading' />
 
     <!-- <cube-spin v-if='showLoader' id='loading'></cube-spin> -->
