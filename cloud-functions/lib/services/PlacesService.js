@@ -37,17 +37,21 @@ class PlacesService {
     constructor() {
         this.apiClient = new ApiClient_1.default(constants.url.places);
     }
+    buildCategories(categoryId = constants.defaultSearch.categoryId) {
+        return categoryId.toString();
+    }
     /**
      *  return locations from foursquare venue search
      *  https://developer.foursquare.com/docs/api-reference/venues/search/
      */
-    getSites({ center }) {
+    getSites({ center, categoryId }) {
         return __awaiter(this, void 0, void 0, function* () {
+            const categories = this.buildCategories(categoryId);
             const params = {
                 client_id: process.env.PLACES_CLIENT_ID,
                 client_secret: process.env.PLACES_CLIENT_SECRET,
                 ll: center || constants.defaultSearch.center,
-                // categoryId: [],
+                categoryId: categories,
                 v: '20201010',
                 limit: 100
             };

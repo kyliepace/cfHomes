@@ -1,19 +1,25 @@
 <template>
 	<div>
-		<select v-model='minPrice'>
-			<option>Min Price</option>
-			<option value='0'>0</option>
-			<option selected value='50000'>50,000</option>
-			<option value='100000'>100,000</option>
-		</select>
-		<select v-model='maxPrice'>
-			<option >Max Price</option>
-			<option value='100000'>100,000</option>
-			<option selected value='250000'>250,000</option>
-			<option value='1000000'>1,000,000</option>
+    <select v-model='categoryId' multiple>
+			<option disabled>Categories</option>
+      <option value='4bf58dd8d48988d114951735' selected>Bookstore</option>
+      <option value='4bf58dd8d48988d1f9941735' selected>Snacks</option>
+			<option value='4d4b7104d754a06370d81259'>Arts & Entertainment</option>
+			<option value='4d4b7105d754a06374d81259'>Food</option>
+      <option value='4bf58dd8d48988d10a951735'>Bank</option>
+      <option value='4bf58dd8d48988d10d951735'>Record Shop</option>
+      <option value='4bf58dd8d48988d1ed941735'>Spa</option>
 		</select>
 
-		<button @click='onClick' @enter='onClick'>Update Prices</button>
+    <input v-model.number="distance" type="number">		
+
+		<select v-model='units'>
+			<option selected disabled>Units</option>
+			<option value='miles'>miles</option>
+			<option value='kilometers'>kilometers</option>
+		</select>
+
+		<button @click='onClick' @enter='onClick'>Search</button>
 	</div>
 </template>
 
@@ -22,15 +28,20 @@
 		name: 'AddressSearch',
 		data () {
 			return {
-				categoryId: []
+        distance: 10,
+        units: 'miles',
+				categoryId: ['4bf58dd8d48988d114951735', '4bf58dd8d48988d1f9941735']
 			}
 		},
-		props: ['handleClick', 'obj'],
+		props: ['handleClick'],
 		methods: {
 			onClick() {
-				console.log(this.minPrice);
 				this.handleClick({
-					categoryId: this.categoryId
+          categoryId: this.categoryId,
+          radiusOptions: {
+            distance: this.distance,
+            units: this.units
+          }
 				});
 			}
 		}

@@ -6,7 +6,7 @@
     <!-- <cube-spin v-if='showLoader' id='loading'></cube-spin> -->
     <p v-if='propertyLength > 0'>{{propertyLength}} results</p>
     <p v-else >{{instructions}}</p>
-    <!-- <AddressSearch id='searchForm' :handleClick='findVenues' :obj='searchObject' @submit='findRealEstate'/> -->
+    <AddressSearch id='searchForm' :handleClick='findVenues'/>
     <MyMap :cfGeoJson='crossFitGeoJson' :reGeoJson='locationGeoJson' :handleMove='findVenuesByCenter'/>
   </div>
 </template>
@@ -28,11 +28,12 @@ export default {
   data () {
     return {
       errors: [],
-      instructions: 'Find houses for sale near a crossfit',
+      instructions: 'Find places near a crossfit. To find places, zoom in closer to a crossfit location, and adjust the query parameters using the form below.',
       crossFitGeoJson: '',
       locationGeoJson: '',
       showLoader: false,
       propertyLength: '',
+      center: ''
     }
   },
 
@@ -44,6 +45,7 @@ export default {
   methods: {
     findVenuesByCenter(newCenter){
       const center = `${newCenter.lat},${newCenter.lng}`;
+      this.center = center;
       return this.findVenues({center})
     },
 
@@ -61,11 +63,13 @@ export default {
     * search venues from foursquare
     */
     async findVenues(obj) {
-      if (!obj){ return; }
       this.showLoader = true;
       try{
         // get locations
-        this.locationGeoJson = await getHouses(obj);
+        this.locationGeoJson = await getHouses({
+          center: this.center,
+          ...obj
+        });
         this.propertyLength = this.locationGeoJson.length;
         this.showLoader = false;
       }

@@ -7,6 +7,10 @@ import IFeatureCollection from '../interfaces/IFeatureCollection';
 
 class GeoService {
   crossfits;
+  radiusOptions = {
+    distance: constants.turf.distance,
+    units: constants.turf.units as Units
+  }
   apiClient = new ApiClient(constants.pathToCrossfitData);
 
 
@@ -26,17 +30,19 @@ class GeoService {
    * 
    * don't want to load crossfit data each time
    */
-  async filterResults(points, polygon = this.crossfits): Promise<FeatureCollection> {    
+  async filterResults(points, polygon = this.crossfits, radiusOptions = this.radiusOptions): Promise<FeatureCollection> {    
     if (!polygon){
       polygon = await this.loadCrossfits();
     }  
     // use turf.within to compare set of points to a set of polygons, return points that fall within polygons
-    const DISTANCE = constants.turf.distance;
-    const UNITS = constants.turf.units as Units;
-    const searchWithin = buffer(polygon, DISTANCE, {units: UNITS});
+    const searchWithin = buffer(polygon, this.radiusOptions.distance, {
+      units: this.radiusOptions.units
+    });
     const pointsNearCrossfit = pointsWithinPolygon(points, searchWithin);
-
+    console.log(`${pointsNearCrossfit.features.length} locations found within radius`)
     const features = this.dedupePoints(pointsNearCrossfit.features);
+    console.log(`${features.length} filtered locations found within radius`)
+
     return {
       ...pointsNearCrossfit,
       features
@@ -50,9 +56,9 @@ class GeoService {
    */
   dedupePoints(arrayOfPoints){
     return arrayOfPoints.reduce((acc, point) => {
-      const alreadyExists = acc.find(({properties}) => properties.url === point.properties.url);
+      const alreadyExists = acc.some(({properties}) => properties.name === point.properties.name);
       return alreadyExists ? acc : acc.concat(point);
-    }, [])
+    }, []);
   }
 }
 

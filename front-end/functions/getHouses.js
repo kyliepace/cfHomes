@@ -15,5 +15,6 @@ export default async function getHouses(data = {}){
     data
   };
   const response = await axios.request(axiosBody);
-  return response.data
+  console.log(`${response.data.features.length} locations received `)
+  return response.data;
 }

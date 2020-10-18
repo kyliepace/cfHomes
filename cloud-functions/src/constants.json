@@ -5,11 +5,12 @@
     "places": "https://api.foursquare.com/v2/venues/"
   },
   "turf": {
-    "distance": 5,
+    "distance": 10,
     "units": "miles"
   },
   "defaultSearch": {
-    "center": "50.7243,-8.0018"
+    "center": "50.7243,-8.0018",
+    "categoryId": ["4bf58dd8d48988d114951735", "4bf58dd8d48988d1f9941735"]
   },
   "pathToCrossfitData": "https://raw.githubusercontent.com/kyliepace/cfHomes/master/geojsons/crossFits.json"
 }

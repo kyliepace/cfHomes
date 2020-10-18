@@ -4,17 +4,21 @@ import IFeatureCollection from "../interfaces/IFeatureCollection";
 
 class PlacesService {
   apiClient = new ApiClient(constants.url.places);
+  buildCategories(categoryId: string[] = constants.defaultSearch.categoryId): string{
+    return categoryId.toString();
+  }
 
   /**
    *  return locations from foursquare venue search
    *  https://developer.foursquare.com/docs/api-reference/venues/search/
    */
-  async getSites({ center }) {
+  async getSites({ center, categoryId }) {
+    const categories = this.buildCategories(categoryId);
     const params: {[key: string]: any} = {
       client_id: process.env.PLACES_CLIENT_ID,
       client_secret: process.env.PLACES_CLIENT_SECRET,
       ll: center || constants.defaultSearch.center,
-      // categoryId: [],
+      categoryId: categories,
       v: '20201010',
       limit: 100
     };
