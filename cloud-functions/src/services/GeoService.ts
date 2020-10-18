@@ -8,11 +8,6 @@ class GeoService {
   crossfits;
   apiClient = new ApiClient(constants.pathToCrossfitData);
 
-  constructor(){
-    if (process.env.NODE_ENV === 'production'){
-      this.loadCrossfits();
-    }
-  }
 
   /**
    * get crossfits geojson from github

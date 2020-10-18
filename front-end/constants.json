@@ -3,7 +3,10 @@
     "urls": {
       "crossfit": "getCrossfits",
       "houses": "getZoopla",
-      "cloud_endpoint": "https://europe-west1-crossfit-homes.cloudfunctions.net/"
+      "cloud_endpoint": {
+        "production": "https://europe-west1-crossfit-homes.cloudfunctions.net",
+        "development": "http://localhost:8010"
+      }
     }
   }
 }

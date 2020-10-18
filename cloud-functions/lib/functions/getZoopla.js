@@ -32,6 +32,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ZooplaService_1 = __importDefault(require("../services/ZooplaService"));
+const PlacesService_1 = __importDefault(require("../services/PlacesService"));
 const GeoService_1 = __importDefault(require("../services/GeoService"));
 const constants = __importStar(require("../constants.json"));
 /**
@@ -51,8 +52,8 @@ function getZoopla(req, res) {
                 },
                 bounds
             };
-            const results = yield ZooplaService_1.default.getSites(search);
-            const points = ZooplaService_1.default.toFeatureCollection(results.listing);
+            const results = yield PlacesService_1.default.getSites(search);
+            const points = ZooplaService_1.default.toFeatureCollection(results);
             // sort through the reJson.listing array, compare to crossfit locations, return matching features
             const filteredJson = yield GeoService_1.default.filterResults(points);
             res.setHeader('Content-Type', 'application/json');

@@ -13,9 +13,14 @@ export default class ApiClient {
   }
 
   request(method: string, requestInfo: {data?: any, url?: string, params?: any}): Promise<AxiosResponse> {
+    const fullUrl = `${this.baseUrl}`;
+    if (requestInfo?.url){
+      fullUrl.concat(requestInfo.url)
+    }
+    console.log(fullUrl)
     const axiosBody: AxiosRequestConfig = {
       method: method as Method,
-      baseURL: this.baseUrl,
+      url: fullUrl,
       ...requestInfo
     };
     return axios.request(axiosBody)

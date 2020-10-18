@@ -38,7 +38,8 @@ function getCrossfits(req, res) {
         try {
             const crossfits = yield GeoService_1.default.loadCrossfits();
             res.setHeader('Content-Type', 'application/json');
-            res.set('Access-Control-Allow-Origin', constants.url.allowAccess);
+            const allowAccess = process.env.NODE_ENV === 'development' ? '*' : constants.url.allowAccess;
+            res.set('Access-Control-Allow-Origin', allowAccess);
             res.set('Access-Control-Allow-Methods', 'POST');
             return res.status(200).json(crossfits);
         }

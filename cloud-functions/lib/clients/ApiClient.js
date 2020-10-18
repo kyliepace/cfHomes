@@ -23,7 +23,12 @@ class ApiClient {
             .join('&');
     }
     request(method, requestInfo) {
-        const axiosBody = Object.assign({ method: method, baseURL: this.baseUrl }, requestInfo);
+        const fullUrl = `${this.baseUrl}`;
+        if (requestInfo === null || requestInfo === void 0 ? void 0 : requestInfo.url) {
+            fullUrl.concat(requestInfo.url);
+        }
+        console.log(fullUrl);
+        const axiosBody = Object.assign({ method: method, url: fullUrl }, requestInfo);
         return axios_1.default.request(axiosBody);
     }
     get(requestInfo) {

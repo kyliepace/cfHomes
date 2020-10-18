@@ -6,7 +6,8 @@
   "scripts": {
     "compile": "rm -rf ./lib &&  tsc",
     "test": "ts-mocha -exit -r should --colors \"./test/**/*.test.ts\"",
-    "function:getZoopla": "node node_modules/@google-cloud/functions-framework --port=8010 --target=getZoopla --signature-type=http"
+    "function:getZoopla": "node node_modules/@google-cloud/functions-framework --port=8010 --target=getZoopla --signature-type=http",
+    "function:getCrossfits": "node node_modules/@google-cloud/functions-framework --port=8010 --target=getCrossfits --signature-type=http"
   },
   "author": "Kylie Pace",
   "license": "ISC",

@@ -41,8 +41,8 @@ class ZooplaService {
         return __awaiter(this, void 0, void 0, function* () {
             const params = {
                 api_key: process.env.ZOOPLA_API_KEY,
-                minimum_price: price.minPrice,
-                maximum_price: price.maxPrice,
+                // minimum_price: price.minPrice,
+                // maximum_price: price.maxPrice,
                 page_size: 100,
                 page_number: 4,
                 ordering: 'ascending',
@@ -57,6 +57,7 @@ class ZooplaService {
             const data = yield this.apiClient.get({
                 params
             });
+            console.log(data);
             return data;
         });
     }

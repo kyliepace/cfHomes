@@ -42,11 +42,6 @@ export default {
   },
   async mounted() {
     await this.getCrossfits();
-    await this.findRealEstate({
-      minPrice: this.searchObject.minPrice,
-      maxPrice: this.searchObject.maxPrice,
-      bounds: this.searchObject.bounds
-    })
   },
   
   methods: {

@@ -3,8 +3,8 @@
     <client-only>
       <v-map :minZoom='minZoom' :maxZoom='maxZoom' inertia='inertia' :zoom='zoom' :center='center'>
         <v-tilelayer :url='tsUrl'></v-tilelayer>
-        <v-geojson-layer :geojson='cfGeoJson' :options='cfOptions'></v-geojson-layer>
-        <v-geojson-layer :geojson='reGeoJson' :options='reOptions'></v-geojson-layer>
+        <v-geojson-layer v-if='cfGeoJson !== ""' :geojson='cfGeoJson' :options='cfOptions'></v-geojson-layer>
+        <v-geojson-layer v-if='reGeoJson !== ""' :geojson='reGeoJson' :options='reOptions'></v-geojson-layer>
       </v-map>
     </client-only>
 	</div>
@@ -30,19 +30,13 @@
 
   Vue.component('v-map', Vue2Leaflet.LMap);
   Vue.component('v-tilelayer', Vue2Leaflet.LTileLayer);
-  Vue.component('v-geojson-layer', Vue2Leaflet.LGeoJSON);
+  Vue.component('v-geojson-layer', Vue2Leaflet.LGeoJson);
   Vue.component('v-marker', Vue2Leaflet.LMarker);
   Vue.component('v-popup', Vue2Leaflet.LPopup);
 
 export default {
 	name: 'myMap',
-	components: {
-		// 'v-map' : Vue2Leaflet.Map,
-		// 'v-tilelayer': Vue2Leaflet.TileLayer,
-		// 'v-geojson-layer': Vue2Leaflet.GeoJSON,
-		// 'v-marker': Vue2Leaflet.Marker,
-		// 'v-popup': Vue2Leaflet.Popup
-	},
+
 	data () {
 		return {
 			tsUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -63,7 +57,6 @@ export default {
 					return isBrowser ? L.circle(latlng, 10, {radius: 41, fillColor: 'black'}) : undefined;
 				},
 				onEachFeature: function(feature, layer) {
-					feature.properties.layer = layer;
 					layer.bindPopup('<a href="'+feature.properties.website+'" target="_blank">'+feature.properties.name+'</a>');
 				}
 			}, 

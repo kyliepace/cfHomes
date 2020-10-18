@@ -38,9 +38,6 @@ const ApiClient_1 = __importDefault(require("../clients/ApiClient"));
 class GeoService {
     constructor() {
         this.apiClient = new ApiClient_1.default(constants.pathToCrossfitData);
-        if (process.env.NODE_ENV === 'production') {
-            this.loadCrossfits();
-        }
     }
     /**
      * get crossfits geojson from github

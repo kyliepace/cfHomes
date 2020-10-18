@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import zooplaService from '../services/ZooplaService';
+import placesService from '../services/PlacesService';
 import geoService from '../services/GeoService';
 import IFeatureCollection from '../interfaces/IFeatureCollection';
 import * as constants from '../constants.json';
@@ -10,6 +11,7 @@ import * as constants from '../constants.json';
  * under 8 miles from a crossfit location
  */
 export default async function getZoopla(req: Request, res: Response ): Promise<Response>{
+
   try{
     const { 
       minPrice,
@@ -26,8 +28,8 @@ export default async function getZoopla(req: Request, res: Response ): Promise<R
       },
       bounds
     }
-    const results: { listing: any[] } = await zooplaService.getSites(search);  
-    const points: IFeatureCollection = zooplaService.toFeatureCollection(results.listing);
+    const results: any = await placesService.getSites(search);  
+    const points: IFeatureCollection = zooplaService.toFeatureCollection(results);
 
     // sort through the reJson.listing array, compare to crossfit locations, return matching features
     const filteredJson = await geoService.filterResults(points);

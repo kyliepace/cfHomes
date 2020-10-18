@@ -1,11 +1,17 @@
 {
     "url": {
         "zoopla": "http://api.zoopla.co.uk/api/v1/property_listings.js",
-        "allowAccess": "https://kyliepace.github.io"
+        "allowAccess": "https://kyliepace.github.io",
+        "places": "https://api.foursquare.com/v2/venues"
     },
     "turf": {
         "distance": 5,
         "units": "miles"
+    },
+    "defaultSearch": {
+        "minPrice": 100,
+        "maxPrice": 400000,
+        "bounds": [49.97, 58.5, -8.05, 1.72]
     },
     "pathToCrossfitData": "https://raw.githubusercontent.com/kyliepace/cfHomes/master/geojsons/crossFits.json"
 }

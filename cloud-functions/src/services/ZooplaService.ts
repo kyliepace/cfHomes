@@ -7,8 +7,8 @@ class ZooplaService {
   async getSites({ price, bounds}) {
     const params: {[key: string]: any} = {
       api_key: process.env.ZOOPLA_API_KEY,
-      minimum_price: price.minPrice,
-      maximum_price: price.maxPrice,
+      // minimum_price: price.minPrice,
+      // maximum_price: price.maxPrice,
       page_size: 100,
       page_number: 4,
       ordering: 'ascending',
@@ -23,6 +23,7 @@ class ZooplaService {
     const data = await this.apiClient.get({
       params
     });
+    console.log(data)
     return data;
   }
 
